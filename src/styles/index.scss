@@ -7,6 +7,7 @@
 @import "./components/loader.scss";
 @import "./components/contacts.scss";
 @import "./components/services.scss";
+@import "./components/about.scss";
 
 * {
 	outline: none !important;
@@ -21,7 +22,7 @@
 
 html {
 	box-sizing: border-box;
-	scroll-behavior: smooth;
+	scroll-behavior: smooth; 
 }
 
 body {
@@ -67,6 +68,7 @@ section{
   font-weight: 600;
   letter-spacing: -0.72px;
   margin-top: 12px;
+  margin-bottom: 0;
 }
 
 .subtitle{
