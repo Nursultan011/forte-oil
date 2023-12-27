@@ -219,3 +219,83 @@
     }
   }
 }
+
+@media (max-width: 767px){
+  .main{
+    &__inner{
+      padding: 200px 0;
+      gap: 16px;
+      h1{
+        font-size: 36px;
+        line-height: 44px;
+        span{
+          display: inline;
+        }
+      }
+    }
+  }
+
+  .solutions{
+    &__inner{
+      flex-direction: column;
+      align-items: flex-start;
+      h2{
+        font-size: 30px;
+        line-height: 38px;
+      }
+      button{
+        margin-top: 16px;
+        width: 100%;
+      }
+      &>div{
+        width: 100%;
+        max-width: 100%;
+        gap: 16px;
+      }
+      img{
+        margin-top: 32px;
+      }
+    }
+  }
+
+  .product-slider, .services-slider, .major-slider, .team-slider{
+    &__inner{
+      .slide-item{
+        height: 260px;
+      }
+    }
+  }
+
+  .partners{
+    &__inner{
+      .cards{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        img{
+          max-width: 40%;
+          max-height: 80px;
+        }
+      }
+    }
+  }
+
+  .request{
+    &__inner{
+      flex-wrap: wrap;
+      .content, .form{
+        width: 100%;
+      }
+      .content{
+        margin-bottom: 32px;
+        .title{
+          text-align: center;
+        }
+        .subtitle{
+          max-width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

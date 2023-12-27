@@ -45,7 +45,7 @@
                 {{ item.description }}
               </p>
               <div v-if="item.applications" class="items">
-                <div class="items-header">
+                <div @click="toggleItem(i)" class="items-header">
                   Applications include:
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -63,14 +63,14 @@
                     />
                   </svg>
                 </div>
-                <ul class="items-content">
+                <ul v-if="isItemOpen(index)" class="items-content">
                   <li v-for="(li, idx) in item.applications" :key="idx">
                     {{ li }}
                   </li>
                 </ul>
               </div>
               <div v-if="item.advantages" class="items mt-16px">
-                <div class="items-header">
+                <div @click="toggleItem(i)" class="items-header">
                   What are the advantages of pneumatic testing?
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@
                     />
                   </svg>
                 </div>
-                <ul class="items-content">
+                <ul v-if="isItemOpen(index)" class="items-content">
                   <li v-for="(li, idx) in item.advantages" :key="idx">
                     {{ li }}
                   </li>
@@ -134,7 +134,7 @@
                 {{ item.description }}
               </p>
               <div v-if="item.applications" class="items">
-                <div class="items-header">
+                <div @click="toggleItem(i)" class="items-header">
                   Applications include:
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@
                     />
                   </svg>
                 </div>
-                <ul class="items-content">
+                <ul v-if="isItemOpen(index)" class="items-content">
                   <li v-for="(li, idx) in item.applications" :key="idx">
                     {{ li }}
                   </li>
@@ -177,7 +177,7 @@
                     />
                   </svg>
                 </div>
-                <ul class="items-content">
+                <ul v-if="isItemOpen(index)" class="items-content">
                   <li v-for="(li, idx) in item.advantages" :key="idx">
                     {{ li }}
                   </li>
@@ -298,8 +298,23 @@ export default {
       },
     });
 
+    const openItems = ref([]);
+
+    const toggleItem = (index) => {
+      if (openItems.value.includes(index)) {
+        openItems.value = openItems.value.filter((item) => item !== index);
+      } else {
+        openItems.value.push(index);
+      }
+    };
+
+    const isItemOpen = (index) => openItems.value.includes(index);
+
     return {
       services,
+      openItems,
+      toggleItem,
+      isItemOpen,
     };
   },
 };

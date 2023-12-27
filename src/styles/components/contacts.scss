@@ -3,7 +3,9 @@
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
-    .content, .form{
+    flex-wrap: wrap;
+    align-items: flex-start;
+    .content, .form, .maps{
       max-width: calc(50% - 32px);
       width: 100%;
     }
@@ -37,6 +39,7 @@
       }
     }
     .form{
+      margin-top: 32px;
       border-radius: 16px;
       background: #FBFBFB;
       padding: 40px 32px;

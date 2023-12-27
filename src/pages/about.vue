@@ -3,17 +3,14 @@
     <section class="about-main">
       <div class="container">
         <div class="about-main__inner">
-          <p class="suptitle" v-if="about && about.main && about.main.suptitle">
-            {{ about.main.suptitle }}
+          <p class="suptitle">About company</p>
+          <p class="title">
+            Effective Solutions in the Energy and Manufacturing Industries
           </p>
-          <p class="title" v-if="about && about.main && about.main.title">
-            {{ about.main.title }}
-          </p>
-          <p
-            class="subtitle"
-            v-if="about && about.main && about.main.description"
-          >
-            {{ about.description }}
+          <p class="subtitle">
+            We adhere to international quality and safety standards,
+            specializing in refrigeration, power, air handling, pumping systems
+            and components.
           </p>
         </div>
       </div>

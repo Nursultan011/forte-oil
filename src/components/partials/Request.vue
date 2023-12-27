@@ -10,9 +10,19 @@
           </p>
         </div>
         <form action="" class="form">
-          <input type="text" placeholder="Name" />
-          <input type="text" placeholder="Mobile number" />
-          <textarea placeholder="Question"></textarea>
+          <input v-model="form.name" type="text" placeholder="Name" />
+          <input
+            v-model="form.phone_number"
+            type="text"
+            placeholder="Mobile number"
+          />
+          <input v-model="form.email" type="text" placeholder="E-mail" />
+          <input
+            v-model="form.company_name"
+            type="text"
+            placeholder="Company"
+          />
+          <textarea v-model="form.comments" placeholder="Comments"></textarea>
           <button class="button">Send</button>
         </form>
       </div>
@@ -21,7 +31,22 @@
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+export default {
+  setup() {
+    const form = ref({
+      name: "",
+      phone_number: "",
+      email: "",
+      company_name: "",
+      comments: "",
+    });
+
+    return {
+      form,
+    };
+  },
+};
 </script>
 
 <style></style>

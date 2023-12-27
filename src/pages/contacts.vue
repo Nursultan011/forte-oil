@@ -16,6 +16,7 @@
               <p>{{ item.content }}</p>
             </div>
           </div>
+          <div class="maps">MAPS</div>
           <form action="" class="form">
             <input type="text" placeholder="Name" />
             <input type="text" placeholder="Mobile number" />

@@ -18,6 +18,6 @@ export default {
 
 <style lang="scss">
 .app-inner {
-  min-height: 60vh;
+  min-height: 80vh;
 }
 </style>
