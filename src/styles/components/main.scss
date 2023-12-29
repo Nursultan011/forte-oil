@@ -8,7 +8,9 @@
     flex-direction: column;
     gap: 24px;
     align-items: flex-start;
+    justify-content: center;
     max-width: 560px;
+    min-height: calc(100vh - 80px);
     h1{
       margin: 0;
       color: $white;

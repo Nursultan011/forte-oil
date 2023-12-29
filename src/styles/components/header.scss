@@ -4,6 +4,48 @@
   top: 0;
   background: white;
   z-index: 3;
+  &__language {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    .language{
+      &-wrap{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        svg{
+          margin-left: 3px;
+        }
+      }
+      &-list{
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
+        background: white;
+        list-style-type: none;
+        position: absolute;
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+        padding: 4px;
+        margin: 0 0 0 -10px;
+        li{
+          padding: 8px;
+          cursor: pointer;
+        }
+        .active-lang{
+          color: #00586F
+        }
+      }
+    }
+    span {
+      font-size: 16px;
+      color: $grey;
+      font-weight: 600;
+    }
+    .img-box {
+      width: 20px;
+      height: 20px;
+    }
+  }
   &__inner{
     display: flex;
     align-items: center;

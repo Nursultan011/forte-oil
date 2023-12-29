@@ -51,7 +51,42 @@
             />
           </svg>
         </div>
-        <div class="language">Eng</div>
+        <div class="header__language">
+          <div
+            class="language"
+            @mouseover="openDropdownLang"
+            @mouseleave="closeDropdownLang"
+          >
+            <div class="language-wrap">
+              <span>{{ locale }}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M5 7.5L10 12.5L15 7.5"
+                  stroke="#555555"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <ul class="language-list" v-show="isDropdownOpenLang">
+              <li
+                v-for="lang in availableLanguages"
+                :key="lang"
+                @click="changeLanguage(lang)"
+                :class="{ 'active-lang': lang == locale }"
+              >
+                {{ lang }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -60,11 +95,19 @@
 <script>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+
 export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
     const isMenuOpen = ref(false);
+    const isDropdownOpenLang = ref(false);
+    const availableLanguages = ["en", "ru", "kz"];
+
+    const { t, locale, setLocale } = useI18n({
+      inheritLocale: true,
+    });
 
     const headers = ref([
       {
@@ -94,12 +137,32 @@ export default {
       isMenuOpen.value = false;
     };
 
+    const openDropdownLang = () => {
+      isDropdownOpenLang.value = true;
+    };
+
+    const closeDropdownLang = () => {
+      isDropdownOpenLang.value = false;
+    };
+
+    const changeLanguage = (lang) => {
+      locale.value = lang;
+    };
+
     return {
       headers,
       router,
       route,
       redirect,
       isMenuOpen,
+      openDropdownLang,
+      closeDropdownLang,
+      availableLanguages,
+      isDropdownOpenLang,
+      changeLanguage,
+      locale,
+      t,
+      setLocale,
     };
   },
 };
