@@ -34,24 +34,35 @@
               />
               <div class="slide-item__content">
                 <p v-if="slide.title">{{ slide.title }}</p>
-                <router-link to="/products" class="more">
-                  More details
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      d="M4.16666 9.99996H15.8333M15.8333 9.99996L9.99999 4.16663M15.8333 9.99996L9.99999 15.8333"
-                      stroke="#E6EEF1"
-                      stroke-width="1.66667"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </router-link>
+                <ul>
+                  <li v-if="slide.location">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M12 12.5C13.6569 12.5 15 11.1569 15 9.5C15 7.84315 13.6569 6.5 12 6.5C10.3431 6.5 9 7.84315 9 9.5C9 11.1569 10.3431 12.5 12 12.5Z"
+                        stroke="#B3CDD4"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12 22C14 18 20 15.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 15.4183 10 18 12 22Z"
+                        stroke="#B3CDD4"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span>
+                      {{ slide.location }}
+                    </span>
+                  </li>
+                </ul>
               </div>
             </div>
           </SplideSlide>
@@ -67,23 +78,29 @@ export default {
   setup() {
     const slides = ref([
       {
-        title: "Generators",
+        title: "Gas Turbine Extra cooling project",
+        location: "Tengiz - Sour Gas Injection",
         img: "services-1.jpg",
       },
       {
-        title: "Compressors",
+        title:
+          "Instrument air package for onshore/offshore commissioning activities",
+        location: "Tengiz - Sour Gas Injection",
         img: "services-1.jpg",
       },
       {
-        title: "Lighting towers",
+        title: "Special pumping and cooling project",
+        location: "Tengiz - Sour Gas Injection",
         img: "services-1.jpg",
       },
       {
         title: "Dryers",
+        location: "Tengiz - Sour Gas Injection",
         img: "services-1.jpg",
       },
       {
         title: "Trucks",
+        location: "Tengiz - Sour Gas Injection",
         img: "services-1.jpg",
       },
     ]);

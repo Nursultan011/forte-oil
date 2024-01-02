@@ -36,25 +36,8 @@
                 alt=""
               />
               <div class="slide-item__content">
-                <p v-if="slide.title">{{ slide.title }}</p>
-                <router-link to="/products" class="more">
-                  More details
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      d="M4.16666 9.99996H15.8333M15.8333 9.99996L9.99999 4.16663M15.8333 9.99996L9.99999 15.8333"
-                      stroke="#E6EEF1"
-                      stroke-width="1.66667"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </router-link>
+                <p v-if="slide.name">{{ slide.name }}</p>
+                <h3 v-if="slide.position">{{ slide.position }}</h3>
               </div>
             </div>
           </SplideSlide>
@@ -70,24 +53,29 @@ export default {
   setup() {
     const slides = ref([
       {
-        title: "Generators",
-        img: "services-1.jpg",
+        name: "Generators",
+        position: "Должность",
+        img: "professor.jpeg",
       },
       {
-        title: "Compressors",
-        img: "services-1.jpg",
+        name: "Compressors",
+        position: "Должность",
+        img: "professor.jpeg",
       },
       {
-        title: "Lighting towers",
-        img: "services-1.jpg",
+        name: "Lighting towers",
+        position: "Должность",
+        img: "professor.jpeg",
       },
       {
-        title: "Dryers",
-        img: "services-1.jpg",
+        name: "Dryers",
+        position: "Должность",
+        img: "professor.jpeg",
       },
       {
-        title: "Trucks",
-        img: "services-1.jpg",
+        name: "Trucks",
+        position: "Должность",
+        img: "professor.jpeg",
       },
     ]);
 
