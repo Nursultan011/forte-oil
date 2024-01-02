@@ -8,21 +8,30 @@
           We’d love to hear from you. Please fill out this form or shoot us an
           email.
         </div>
-        <div class="contacts__wrap">
-          <div class="content">
-            <div v-for="(item, i) in info" :key="i">
-              <img :src="require(`@/assets/images/${item.icon}`)" alt="" />
-              <span>{{ item.title }}</span>
-              <p>{{ item.content }}</p>
+        <div class="contacts__flex">
+          <div class="contacts__wrap">
+            <div class="content">
+              <div v-for="(item, i) in info" :key="i">
+                <img :src="require(`@/assets/images/${item.icon}`)" alt="" />
+                <span>{{ item.title }}</span>
+                <p>{{ item.content }}</p>
+              </div>
             </div>
+
+            <form action="" class="form">
+              <input type="text" placeholder="Name" />
+              <input type="text" placeholder="Mobile number" />
+              <textarea placeholder="Question"></textarea>
+              <button class="button">Send</button>
+            </form>
           </div>
-          <div class="maps">MAPS</div>
-          <form action="" class="form">
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Mobile number" />
-            <textarea placeholder="Question"></textarea>
-            <button class="button">Send</button>
-          </form>
+          <div class="maps">
+            <iframe
+              src="https://maps.google.com/maps?q=almaty&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+              frameborder="0"
+              scrolling="no"
+            ></iframe>
+          </div>
         </div>
       </div>
     </div>

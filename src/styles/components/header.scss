@@ -4,6 +4,11 @@
   top: 0;
   background: white;
   z-index: 3;
+  &__flex{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
   &__language {
     z-index: 10;
     display: flex;
@@ -128,9 +133,6 @@
       .burger-menu{
         display: flex;
         align-items: center;
-      }
-      .language{
-        display: none;
       }
     }
   }

@@ -17,74 +17,77 @@
             </li>
           </ul>
         </nav>
-        <div class="burger-menu" @click="isMenuOpen = !isMenuOpen">
-          <svg
-            v-if="isMenuOpen === false"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M3 12H21M3 6H21M3 18H21"
-              stroke="#344054"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <svg
-            v-else
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M18 6L6 18M6 6L18 18"
-              stroke="#667085"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-        <div class="header__language">
-          <div
-            class="language"
-            @mouseover="openDropdownLang"
-            @mouseleave="closeDropdownLang"
-          >
-            <div class="language-wrap">
-              <span>{{ locale }}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  stroke="#555555"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+
+        <div class="header__flex">
+          <div class="header__language">
+            <div
+              class="language"
+              @mouseover="openDropdownLang"
+              @mouseleave="closeDropdownLang"
+            >
+              <div class="language-wrap">
+                <span>{{ locale }}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M5 7.5L10 12.5L15 7.5"
+                    stroke="#555555"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <ul class="language-list" v-show="isDropdownOpenLang">
+                <li
+                  v-for="lang in availableLanguages"
+                  :key="lang"
+                  @click="changeLanguage(lang)"
+                  :class="{ 'active-lang': lang == locale }"
+                >
+                  {{ lang }}
+                </li>
+              </ul>
             </div>
-            <ul class="language-list" v-show="isDropdownOpenLang">
-              <li
-                v-for="lang in availableLanguages"
-                :key="lang"
-                @click="changeLanguage(lang)"
-                :class="{ 'active-lang': lang == locale }"
-              >
-                {{ lang }}
-              </li>
-            </ul>
+          </div>
+          <div class="burger-menu" @click="isMenuOpen = !isMenuOpen">
+            <svg
+              v-if="isMenuOpen === false"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M3 12H21M3 6H21M3 18H21"
+                stroke="#344054"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="#667085"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </div>
         </div>
       </div>
