@@ -6,6 +6,19 @@
     <product-slider />
     <services-slider />
     <major-projects />
+    <section class="actions">
+      <div class="container">
+        <div class="actions__inner">
+          <div class="actions__content">
+            <p class="title">Our work in action</p>
+            <p class="subtitle">
+              Everything you need to build modern UI and great products.
+            </p>
+          </div>
+          <div class="actions__sliders"></div>
+        </div>
+      </div>
+    </section>
     <partners />
     <request />
   </div>
@@ -36,17 +49,43 @@ export default {
   },
   setup() {
     const store = useStore();
-    const isLoading = ref(true);
+    const isLoading = ref(false);
+    const currentSlide = ref(0);
 
-    onMounted(async () => {
-      await store.dispatch("main/getMain").then((res) => {
-        isLoading.value = false;
-      });
-    });
+    const slides = ref([
+      { number: 41, text: "sustainability-related work" },
+      { number: 41, text: "sustainability-related work" },
+    ]);
+
+    // onMounted(async () => {
+    //   await store.dispatch("main/getMain").then((res) => {
+    //     isLoading.value = false;
+    //   });
+    // });
+
+    const nextSlide = () => {
+      if (currentSlide.value < slides.value.length - 1) {
+        currentSlide.value++;
+      } else {
+        currentSlide.value = 0; // Loop back to the first slide
+      }
+    };
+
+    const prevSlide = () => {
+      if (currentSlide.value > 0) {
+        currentSlide.value--;
+      } else {
+        currentSlide.value = slides.value.length - 1; // Loop back to the last slide
+      }
+    };
 
     return {
       store,
       isLoading,
+      slides,
+      currentSlide,
+      nextSlide,
+      prevSlide,
     };
   },
 };
