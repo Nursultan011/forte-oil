@@ -6,7 +6,7 @@
     <product-slider />
     <services-slider />
     <major-projects />
-    <section class="actions">
+    <!-- <section class="actions">
       <div class="container">
         <div class="actions__inner">
           <div class="actions__content">
@@ -18,7 +18,7 @@
           <div class="actions__sliders"></div>
         </div>
       </div>
-    </section>
+    </section> -->
     <partners />
     <request />
   </div>

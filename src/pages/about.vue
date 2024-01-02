@@ -48,6 +48,7 @@
               reasonable price with the producers’ warranties. We also provide
               after-purchase service and delay-free supplies of the spare parts.
             </p>
+            <img class="mobile" src="../assets/images/about-2-1.jpg" alt="" />
           </div>
         </div>
       </div>
@@ -82,6 +83,7 @@
               according to the standards of ISO 9001, ISO 14001 and 45001 by
               Bureau Veritas the leading European certification body.
             </p>
+            <img class="mobile" src="../assets/images/about-2-2.jpg" alt="" />
           </div>
         </div>
       </div>

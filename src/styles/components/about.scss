@@ -23,6 +23,8 @@
       .container{
         display: flex;
         justify-content: flex-start;
+        max-width: 50%;
+        margin-left: 0;
       }
       &:nth-child(even){
         margin-top: 96px;
@@ -30,6 +32,8 @@
         .container{
           display: flex;
           justify-content: flex-end;
+          margin-right: 0;
+          margin-left: auto;
         }
       }
     }
@@ -38,6 +42,9 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      .mobile{
+        display: none;
+      }
       .icon{
         border-radius: 28px;
         border: 8px solid  #E6EEF1;
@@ -107,6 +114,9 @@
 
 @media (max-width: 767px){
   .about{
+    &-main{
+      padding-bottom: 48px;
+    }
     &-third{
       &__inner{
         flex-wrap: wrap;
@@ -118,6 +128,35 @@
         margin-top: 48px;
         div{
           width: 100%;
+        }
+      }
+    }
+    &-second{
+      &__block{
+        background-image: none !important;
+        .container{
+          max-width: 100% !important;
+        }
+        &:nth-child(even){
+          margin-top: 48px;
+        }
+      }
+      &__content{
+        .mobile{
+          display: block;
+          width: 100%;
+          border-radius: 10px;
+          object-fit: cover;
+          object-position: center center;
+          max-height: 240px;
+        }
+        p{
+          font-size: 16px;
+          line-height: 26px;
+        }
+        h3{
+          font-size: 24px;
+          line-height: normal;
         }
       }
     }
