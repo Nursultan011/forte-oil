@@ -1,5 +1,6 @@
 <template>
-  <section class="contacts">
+  <loader v-if="isLoading" />
+  <section v-else class="contacts">
     <div class="container">
       <div class="contacts__inner">
         <span class="suptitle"> Contact us </span>
@@ -39,9 +40,15 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import Loader from "@/components/global/Loader.vue";
+import { ref, onMounted, computed } from "vue";
+import { useStore } from "vuex";
 export default {
+  components: { Loader },
   setup() {
+    const store = useStore();
+    const isLoading = ref(true);
+
     const info = ref([
       {
         icon: "tel.svg",
@@ -66,8 +73,19 @@ export default {
       },
     ]);
 
+    const contacts = computed(() => store.state.contacts.data);
+
+    onMounted(async () => {
+      await store.dispatch("main/getContacts").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
     return {
       info,
+      isLoading,
+      store,
+      contacts,
     };
   },
 };

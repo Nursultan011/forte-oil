@@ -3,6 +3,7 @@ import axiosInstance from '../../helpers/instance';
 
 const state = {
   main: null,
+  contacts: null,
 };
 
 const getters = {
@@ -24,12 +25,28 @@ const actions = {
       throw error;
     }
   },
+  async getContacts({ commit }) {
+    try {
+      const response = await axiosInstance.get('/api/contacts/');
+
+      if (response.data) {
+        commit('setContact', response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log('Ошибка', error);
+      throw error;
+    }
+  }
 };
 
 const mutations = {
-  getMain(state, data) {
+  setMain(state, data) {
     state.main = data;
   },
+  setContact(state, data) {
+    state.contacts = data;
+  }
 };
 
 export default {

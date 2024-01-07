@@ -20,12 +20,12 @@
       background-repeat: no-repeat;
       display: flex;
       align-items: center;
-      .container{
-        display: flex;
-        justify-content: flex-start;
-        max-width: 50%;
-        margin-left: 0;
-      }
+      // .container{
+        // display: flex;
+        // justify-content: flex-start;
+        // max-width: 50%;
+        // margin-left: 0;
+      // }
       &:nth-child(even){
         margin-top: 96px;
         background-position: left center;
