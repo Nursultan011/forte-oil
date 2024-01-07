@@ -57,11 +57,11 @@ export default {
       { number: 41, text: "sustainability-related work" },
     ]);
 
-    onMounted(async () => {
-      await store.dispatch("main/getMain").then((res) => {
-        isLoading.value = false;
-      });
-    });
+    // onMounted(async () => {
+    //   await store.dispatch("main/getMain").then((res) => {
+    //     isLoading.value = false;
+    //   });
+    // });
 
     const nextSlide = () => {
       if (currentSlide.value < slides.value.length - 1) {
