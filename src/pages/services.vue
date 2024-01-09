@@ -1,5 +1,6 @@
 <template>
-  <section class="services">
+  <loader v-if="isLoading" />
+  <section v-else class="services">
     <div class="container">
       <div class="services__inner">
         <span class="suptitle"> ForteOil services </span>
@@ -278,9 +279,18 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import Loader from "@/components/global/Loader.vue";
+import { useStore } from "vuex";
+
 export default {
+  components: {
+    Loader,
+  },
   setup() {
+    const store = useStore();
+    const isLoading = ref(true);
+
     const services = ref({
       cleaning_services: {
         title: "Cleaning services",
@@ -397,11 +407,19 @@ export default {
 
     const isItemOpen = (uniqueId) => openItems.value.includes(uniqueId);
 
+    onMounted(async () => {
+      await store.dispatch("main/getServices").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
     return {
       services,
       openItems,
       toggleItem,
       isItemOpen,
+      store,
+      isLoading,
     };
   },
 };

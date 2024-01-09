@@ -33,7 +33,7 @@ import ProductSlider from "@/components/partials/MainPage/ProductSlider.vue";
 import ServicesSlider from "@/components/partials/MainPage/ServicesSlider.vue";
 import MajorProjects from "@/components/partials/MainPage/MajorProjects.vue";
 import { useStore } from "vuex";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Loader from "@/components/global/Loader.vue";
 
 export default {
@@ -49,7 +49,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const isLoading = ref(false);
+    const isLoading = ref(true);
     const currentSlide = ref(0);
 
     const slides = ref([
@@ -57,11 +57,13 @@ export default {
       { number: 41, text: "sustainability-related work" },
     ]);
 
-    // onMounted(async () => {
-    //   await store.dispatch("main/getMain").then((res) => {
-    //     isLoading.value = false;
-    //   });
-    // });
+    const main = computed(() => store.state.main.data);
+
+    onMounted(async () => {
+      await store.dispatch("main/getMain").then((res) => {
+        isLoading.value = false;
+      });
+    });
 
     const nextSlide = () => {
       if (currentSlide.value < slides.value.length - 1) {
@@ -86,6 +88,7 @@ export default {
       currentSlide,
       nextSlide,
       prevSlide,
+      main,
     };
   },
 };

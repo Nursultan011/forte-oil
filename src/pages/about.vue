@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <loader v-if="isLoading" />
+  <div v-else>
     <section class="about-main">
       <div class="container">
         <div class="about-main__inner">
@@ -124,16 +125,22 @@
 <script>
 import Partners from "@/components/partials/Partners.vue";
 import Request from "@/components/partials/Request.vue";
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Team from "@/components/partials/Team.vue";
+import Loader from "@/components/global/Loader.vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
     Partners,
     Request,
     Team,
+    Loader,
   },
   setup() {
+    const store = useStore();
+    const isLoading = ref(true);
+
     const about = ref({
       main: {
         suptitle: "ForteOil products",
@@ -194,8 +201,19 @@ export default {
       },
     });
 
+    const aboutUs = computed(() => store.state.about.data);
+
+    onMounted(async () => {
+      await store.dispatch("main/getAbout").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
     return {
+      store,
       about,
+      isLoading,
+      aboutUs,
     };
   },
 };

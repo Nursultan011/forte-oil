@@ -1,5 +1,6 @@
 <template>
-  <section class="products">
+  <loader v-if="isLoading" />
+  <section v-else class="products">
     <div class="container">
       <div class="products__inner">
         <div class="products__header">
@@ -74,9 +75,18 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import Loader from "@/components/global/Loader.vue";
+import { useStore } from "vuex";
+
 export default {
+  components: {
+    Loader,
+  },
   setup() {
+    const store = useStore();
+    const isLoading = ref(true);
+
     const products = ref([
       {
         img: "product-1.jpg",
@@ -129,12 +139,19 @@ export default {
       );
     });
 
-    // Установка активной категории
     const setActiveCategory = (category) => {
       activeCategory.value = category;
     };
 
+    onMounted(async () => {
+      await store.dispatch("main/getProducts").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
     return {
+      store,
+      isLoading,
       products,
       categories,
       filteredProducts,

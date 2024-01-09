@@ -3,6 +3,9 @@ import axiosInstance from '../../helpers/instance';
 
 const state = {
   main: null,
+  about: null,
+  services: null,
+  products: null,
   contacts: null,
 };
 
@@ -25,6 +28,45 @@ const actions = {
       throw error;
     }
   },
+  async getAbout({ commit }) {
+    try {
+      const response = await axiosInstance.get('/api/about/');
+
+      if (response.data) {
+        commit('setAbout', response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log('Ошибка', error);
+      throw error;
+    }
+  },
+  async getServices({ commit }) {
+    try {
+      const response = await axiosInstance.get('/api/services/');
+
+      if (response.data) {
+        commit('setServices', response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log('Ошибка', error);
+      throw error;
+    }
+  },
+  async getProducts({ commit }) {
+    try {
+      const response = await axiosInstance.get('/api/products/');
+
+      if (response.data) {
+        commit('setProducts', response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log('Ошибка', error);
+      throw error;
+    }
+  },
   async getContacts({ commit }) {
     try {
       const response = await axiosInstance.get('/api/contacts/');
@@ -43,6 +85,15 @@ const actions = {
 const mutations = {
   setMain(state, data) {
     state.main = data;
+  },
+  setAbout(state, data) {
+    state.about = data;
+  },
+  setServices(state, data) {
+    state.services = data;
+  },
+  setProducts(state, data) {
+    state.products = data;
   },
   setContact(state, data) {
     state.contacts = data;
