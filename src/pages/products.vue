@@ -3,13 +3,24 @@
   <section v-else class="products">
     <div class="container">
       <div class="products__inner">
-        <div class="products__header">
-          <span class="suptitle"> ForteOil products </span>
-          <div class="title">Quick at market needs reacting</div>
-          <div class="subtitle">
-            “Forte Oil Field Services” LLP provides a wide range of services and
-            products’ assortment. We always hear our clients and are happy to
-            offer individual “be-spoke” solutions.
+        <div class="products__header" v-if="products && products.content">
+          <span
+            class="suptitle"
+            v-if="products && products.content && products.content.label"
+          >
+            {{ products.content.label }}
+          </span>
+          <div
+            class="title"
+            v-if="products && products.content && products.content.title"
+          >
+            {{ products.content.title }}
+          </div>
+          <div
+            class="subtitle"
+            v-if="products && products.content && products.content.description"
+          >
+            {{ products.content.description }}
           </div>
         </div>
         <div class="products__content">
@@ -41,30 +52,18 @@
               v-for="(product, index) in filteredProducts"
               :key="index"
             >
-              <img :src="require(`@/assets/images/${product.img}`)" alt="" />
+              <img
+                v-if="product.img_uri"
+                :src="getImg(product.img_uri)"
+                alt=""
+              />
               <div class="products__card-content">
                 <h3>{{ product.title }}</h3>
                 <p>{{ product.description }}</p>
-                <ul class="flex">
-                  <li v-if="product.manufacturer">
-                    <span>Manufacturer:</span>
-                    <p>
-                      {{ product.manufacturer }}
-                    </p>
-                  </li>
-                  <li v-if="product.power">
-                    <span>Power:</span>
-                    <p>
-                      {{ product.power }}
-                    </p>
-                  </li>
-                  <li v-if="product.area">
-                    <span> Area: </span>
-                    <p>
-                      {{ product.area }}
-                    </p>
-                  </li>
-                </ul>
+                <div
+                  v-if="product.characteristics"
+                  v-html="product.characteristics"
+                ></div>
               </div>
             </div>
           </div>
@@ -78,6 +77,7 @@
 import { ref, computed, onMounted } from "vue";
 import Loader from "@/components/global/Loader.vue";
 import { useStore } from "vuex";
+import { getImg } from "@/helpers/imageUrl";
 
 export default {
   components: {
@@ -87,44 +87,13 @@ export default {
     const store = useStore();
     const isLoading = ref(true);
 
-    const products = ref([
-      {
-        img: "product-1.jpg",
-        category: "Generators",
-        title: "Power Generating",
-        description:
-          "Sound pressure effect, cover is of welding structure with the Zintec rust protection and locking doors. Fuel tank with the low fuel sensor Spark preventer dumper with the prevention from the dregs intrusion. Automatic warning and emergency signals",
-        manufacturer: "Globe Power",
-        power: "from50 kW to 2000 kW",
-        area: "from 700 to 5000 sq.m",
-      },
-      {
-        img: "product-2.jpg",
-        category: "Industrial systems of air chilling",
-        title: "Lighting towers",
-        description:
-          "Sound pressure effect, cover is of welding structure with the Zintec rust protection and locking doors. Fuel tank with the low fuel sensor Spark preventer dumper with the prevention from the dregs intrusion. Automatic warning and emergency signals",
-        manufacturer: "Globe Power",
-        power: "from50 kW to 2000 kW",
-        area: "from 700 to 5000 sq.m",
-      },
-      {
-        img: "product-3.jpg",
-        category: "Dryers",
-        title: "Power Generating",
-        description:
-          "Sound pressure effect, cover is of welding structure with the Zintec rust protection and locking doors. Fuel tank with the low fuel sensor Spark preventer dumper with the prevention from the dregs intrusion. Automatic warning and emergency signals",
-        manufacturer: "Globe Power",
-        power: "from50 kW to 2000 kW",
-        area: "from 700 to 5000 sq.m",
-      },
-    ]);
+    const products = computed(() => store.state.main.products.data);
 
     const activeCategory = ref("View all");
 
     const categories = computed(() => {
       const uniqueCategories = new Set();
-      products.value.forEach((product) =>
+      products.value.products.forEach((product) =>
         uniqueCategories.add(product.category)
       );
       return ["View all", ...uniqueCategories];
@@ -132,9 +101,9 @@ export default {
 
     const filteredProducts = computed(() => {
       if (activeCategory.value === "View all") {
-        return products.value;
+        return products.value.products;
       }
-      return products.value.filter(
+      return products.value.products.filter(
         (product) => product.category === activeCategory.value
       );
     });
@@ -157,6 +126,7 @@ export default {
       filteredProducts,
       setActiveCategory,
       activeCategory,
+      getImg,
     };
   },
 };

@@ -3,11 +3,23 @@
   <section v-else class="services">
     <div class="container">
       <div class="services__inner">
-        <span class="suptitle"> ForteOil services </span>
-        <div class="title">Beautiful analytics to grow smarter</div>
-        <div class="subtitle">
-          Powerful, self-serve product and growth analytics to help you convert,
-          engage, and retain more users. Trusted by over 4,000 startups.
+        <span
+          class="suptitle"
+          v-if="service && service.content && service.content.label"
+        >
+          {{ service.content.label }}
+        </span>
+        <div
+          class="title"
+          v-if="service && service.content && service.content.title"
+        >
+          {{ service.content.title }}
+        </div>
+        <div
+          class="subtitle"
+          v-if="service && service.content && service.content.description"
+        >
+          {{ service.content.description }}
         </div>
         <div
           class="services__wrap"
@@ -279,9 +291,10 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Loader from "@/components/global/Loader.vue";
 import { useStore } from "vuex";
+import { getImg } from "@/helpers/imageUrl";
 
 export default {
   components: {
@@ -290,6 +303,8 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
+
+    const service = computed(() => store.state.main.services.data);
 
     const services = ref({
       cleaning_services: {
@@ -414,12 +429,14 @@ export default {
     });
 
     return {
+      service,
       services,
       openItems,
       toggleItem,
       isItemOpen,
       store,
       isLoading,
+      getImg,
     };
   },
 };

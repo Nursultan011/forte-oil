@@ -3,10 +3,14 @@
     <div class="container">
       <div class="request__inner">
         <div class="content">
-          <p class="title">Get in touch</p>
-          <p class="subtitle">
-            Fill out the form and submit it, our manager will contact you as
-            soon as possible
+          <p class="title" v-if="$props.request && $props.request.title">
+            {{ $props.request.title }}
+          </p>
+          <p
+            class="subtitle"
+            v-if="$props.request && $props.request.description"
+          >
+            {{ $props.request.description }}
           </p>
         </div>
         <form action="" class="form">
@@ -33,6 +37,7 @@
 <script>
 import { ref } from "vue";
 export default {
+  props: ["request"],
   setup() {
     const form = ref({
       name: "",

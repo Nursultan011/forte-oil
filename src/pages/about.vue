@@ -1,17 +1,23 @@
 <template>
   <loader v-if="isLoading" />
   <div v-else>
-    <section class="about-main">
+    <section class="about-main" v-if="aboutUs && aboutUs.home">
       <div class="container">
         <div class="about-main__inner">
-          <p class="suptitle">About company</p>
-          <p class="title">
-            Effective Solutions in the Energy and Manufacturing Industries
+          <p
+            class="suptitle"
+            v-if="aboutUs && aboutUs.home && aboutUs.home.label"
+          >
+            {{ aboutUs.home.label }}
           </p>
-          <p class="subtitle">
-            We adhere to international quality and safety standards,
-            specializing in refrigeration, power, air handling, pumping systems
-            and components.
+          <p class="title" v-if="aboutUs && aboutUs.home && aboutUs.home.title">
+            {{ aboutUs.home.title }}
+          </p>
+          <p
+            class="subtitle"
+            v-if="aboutUs && aboutUs.home && aboutUs.home.description"
+          >
+            {{ aboutUs.home.description }}
           </p>
         </div>
       </div>
@@ -89,22 +95,29 @@
         </div>
       </div>
     </section>
-    <section class="about-third">
+    <section class="about-third" v-if="aboutUs && aboutUs.directions">
       <div class="container">
         <div class="about-third__inner">
           <div class="about-third__left">
             <p
               class="title"
-              v-if="about && about.directions && about.directions.title"
+              v-if="
+                aboutUs &&
+                aboutUs.directions &&
+                aboutUs.directions.content &&
+                aboutUs.directions.content.title
+              "
             >
-              {{ about.directions.title }}
+              {{ aboutUs.directions.content.title }}
             </p>
           </div>
           <div
             class="about-third__right"
-            v-if="about && about.directions && about.directions.content"
+            v-if="
+              aboutUs && aboutUs.directions && aboutUs.directions.directions
+            "
           >
-            <div v-for="(item, i) in about.directions.content" :key="i">
+            <div v-for="(item, i) in aboutUs.directions.directions" :key="i">
               <p>
                 {{ item.title }}
               </p>
@@ -116,9 +129,10 @@
         </div>
       </div>
     </section>
-    <team />
-    <partners />
-    <request />
+    <team :team="aboutUs.team" />
+    <major-projects :projects="aboutUs.projects" />
+    <partners :partners="aboutUs.partners" />
+    <request :request="aboutUs.form_request" />
   </div>
 </template>
 
@@ -128,6 +142,7 @@ import Request from "@/components/partials/Request.vue";
 import { ref, onMounted, computed } from "vue";
 import Team from "@/components/partials/Team.vue";
 import Loader from "@/components/global/Loader.vue";
+import MajorProjects from "@/components/partials/MainPage/MajorProjects.vue";
 import { useStore } from "vuex";
 
 export default {
@@ -136,7 +151,9 @@ export default {
     Request,
     Team,
     Loader,
+    MajorProjects,
   },
+
   setup() {
     const store = useStore();
     const isLoading = ref(true);
@@ -201,7 +218,7 @@ export default {
       },
     });
 
-    const aboutUs = computed(() => store.state.about.data);
+    const aboutUs = computed(() => store.state.main.about.data);
 
     onMounted(async () => {
       await store.dispatch("main/getAbout").then((res) => {

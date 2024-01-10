@@ -2,9 +2,13 @@
   <section class="major-slider">
     <div class="container">
       <div class="major-slider__inner">
-        <div class="major-slider__header">
-          <p class="suptitle">Operational experience</p>
-          <p class="title">Major Projects</p>
+        <div class="major-slider__header" v-if="content">
+          <p class="suptitle" v-if="content && content.label">
+            {{ content.label }}
+          </p>
+          <p class="title" v-if="content && content.title">
+            {{ content.title }}
+          </p>
         </div>
         <Splide
           :options="{
@@ -27,15 +31,11 @@
         >
           <SplideSlide v-for="(slide, index) in slides" :key="index">
             <div class="slide-item">
-              <img
-                v-if="slide.img"
-                :src="require(`@/assets/images/${slide.img}`)"
-                alt=""
-              />
+              <img v-if="slide.img_uri" :src="getImg(slide.img_uri)" alt="" />
               <div class="slide-item__content">
                 <p v-if="slide.title">{{ slide.title }}</p>
                 <ul>
-                  <li v-if="slide.location">
+                  <li v-if="slide.client">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -59,7 +59,7 @@
                       />
                     </svg>
                     <span>
-                      {{ slide.location }}
+                      {{ slide.client }}
                     </span>
                   </li>
                 </ul>
@@ -73,40 +73,19 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { getImg } from "@/helpers/imageUrl";
+
 export default {
-  setup() {
-    const slides = ref([
-      {
-        title: "Gas Turbine Extra cooling project",
-        location: "Tengiz - Sour Gas Injection",
-        img: "services-1.jpg",
-      },
-      {
-        title:
-          "Instrument air package for onshore/offshore commissioning activities",
-        location: "Tengiz - Sour Gas Injection",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Special pumping and cooling project",
-        location: "Tengiz - Sour Gas Injection",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Dryers",
-        location: "Tengiz - Sour Gas Injection",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Trucks",
-        location: "Tengiz - Sour Gas Injection",
-        img: "services-1.jpg",
-      },
-    ]);
+  props: ["projects"],
+  setup(props) {
+    const content = computed(() => props.projects.content);
+    const slides = computed(() => props.projects.projects);
 
     return {
       slides,
+      content,
+      getImg,
     };
   },
 };

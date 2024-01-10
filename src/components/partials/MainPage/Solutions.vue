@@ -4,14 +4,12 @@
       <div class="solutions__inner">
         <div>
           <h2>
-            Effective Solutions in the Energy and Manufacturing Industries
+            {{ $props.about.title }}
           </h2>
           <p class="subtitle">
-            We adhere to international quality and safety standards,
-            specializing in refrigeration, power, air handling, pumping systems
-            and components.
+            {{ $props.about.description }}
           </p>
-          <button class="button">More details</button>
+          <router-link to="/about" class="button">More details</router-link>
         </div>
         <div>
           <img src="@/assets/images/solutions-bg.png" alt="" />
@@ -22,7 +20,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["about"],
+};
 </script>
 
 <style></style>

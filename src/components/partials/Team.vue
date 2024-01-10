@@ -1,12 +1,13 @@
 <template>
-  <section class="team-slider">
+  <section class="team-slider" v-if="team && team.team">
     <div class="container">
       <div class="team-slider__inner">
         <div class="team-slider__header">
-          <p class="title">Our team</p>
-          <p class="subtitle">
-            We’re always on the lookout for passionate, dynamic, and talented
-            individuals.
+          <p class="title" v-if="content && content.title">
+            {{ content.title }}
+          </p>
+          <p class="subtitle" v-if="content && content.description">
+            {{ content.description }}
           </p>
         </div>
         <Splide
@@ -30,11 +31,7 @@
         >
           <SplideSlide v-for="(slide, index) in slides" :key="index">
             <div class="slide-item">
-              <img
-                v-if="slide.img"
-                :src="require(`@/assets/images/${slide.img}`)"
-                alt=""
-              />
+              <img v-if="slide.img_uri" :src="getImg(slide.img_uri)" alt="" />
               <div class="slide-item__content">
                 <p v-if="slide.name">{{ slide.name }}</p>
                 <h3 v-if="slide.position">{{ slide.position }}</h3>
@@ -48,39 +45,18 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { getImg } from "@/helpers/imageUrl";
 export default {
-  setup() {
-    const slides = ref([
-      {
-        name: "Generators",
-        position: "Должность",
-        img: "professor.jpeg",
-      },
-      {
-        name: "Compressors",
-        position: "Должность",
-        img: "professor.jpeg",
-      },
-      {
-        name: "Lighting towers",
-        position: "Должность",
-        img: "professor.jpeg",
-      },
-      {
-        name: "Dryers",
-        position: "Должность",
-        img: "professor.jpeg",
-      },
-      {
-        name: "Trucks",
-        position: "Должность",
-        img: "professor.jpeg",
-      },
-    ]);
+  props: ["team"],
+  setup(props) {
+    const content = computed(() => props.team.content);
+    const slides = computed(() => props.team.team);
 
     return {
       slides,
+      content,
+      getImg,
     };
   },
 };

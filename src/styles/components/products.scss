@@ -82,20 +82,25 @@
         line-height: 22px;
         font-weight: 400;
       }
-      ul{
+      &>div > ul{
         margin-top: 16px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         padding-left: 0;
         list-style-type: none;
-        li{
+        &>li{
           width: calc(33.3333% - 5.333px);
           span{
             color: $grey;
             font-size: 12px;
             font-weight: 400;
             margin-bottom: 2px;
+          }
+          ul{
+            margin-top: 10px;
+            list-style-type: none;
+            padding-left: 0;
           }
         }
       }

@@ -2,13 +2,15 @@
   <section class="services-slider">
     <div class="container">
       <div class="services-slider__inner">
-        <div class="services-slider__header">
-          <p class="suptitle">ForteOil services</p>
-          <p class="title">Beautiful analytics to grow smarter</p>
-          <p class="subtitle">
-            Powerful, self-serve product and growth analytics to help you
-            convert, engage, and retain more users. Trusted by over 4,000
-            startups.
+        <div class="services-slider__header" v-if="content">
+          <p class="suptitle" v-if="content && content.label">
+            {{ content.label }}
+          </p>
+          <p class="title" v-if="content && content.title">
+            {{ content.title }}
+          </p>
+          <p class="subtitle" v-if="content && content.description">
+            {{ content.description }}
           </p>
         </div>
         <Splide
@@ -32,11 +34,7 @@
         >
           <SplideSlide v-for="(slide, index) in slides" :key="index">
             <div class="slide-item">
-              <img
-                v-if="slide.img"
-                :src="require(`@/assets/images/${slide.img}`)"
-                alt=""
-              />
+              <img v-if="slide.img_uri" :src="getImg(slide.img_uri)" alt="" />
               <div class="slide-item__content">
                 <p v-if="slide.title">{{ slide.title }}</p>
                 <router-link to="/products" class="more">
@@ -67,34 +65,19 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { getImg } from "@/helpers/imageUrl";
+
 export default {
-  setup() {
-    const slides = ref([
-      {
-        title: "Generators",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Compressors",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Lighting towers",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Dryers",
-        img: "services-1.jpg",
-      },
-      {
-        title: "Trucks",
-        img: "services-1.jpg",
-      },
-    ]);
+  props: ["services"],
+  setup(props) {
+    const content = computed(() => props.services.content);
+    const slides = computed(() => props.services.services);
 
     return {
       slides,
+      content,
+      getImg,
     };
   },
 };

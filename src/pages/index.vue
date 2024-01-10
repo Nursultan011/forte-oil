@@ -1,11 +1,11 @@
 <template>
   <loader v-if="isLoading" />
   <div v-else>
-    <main-block />
-    <solutions />
-    <product-slider />
-    <services-slider />
-    <major-projects />
+    <main-block :main="main.home" />
+    <solutions :about="main.about" />
+    <product-slider :products="main.products" />
+    <services-slider :services="main.services" />
+    <major-projects :projects="main.projects" />
     <!-- <section class="actions">
       <div class="container">
         <div class="actions__inner">
@@ -19,8 +19,8 @@
         </div>
       </div>
     </section> -->
-    <partners />
-    <request />
+    <partners :partners="main.partners" />
+    <request :request="main.form_request" />
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
       { number: 41, text: "sustainability-related work" },
     ]);
 
-    const main = computed(() => store.state.main.data);
+    const main = computed(() => store.state.main.main.data);
 
     onMounted(async () => {
       await store.dispatch("main/getMain").then((res) => {
@@ -77,7 +77,7 @@ export default {
       if (currentSlide.value > 0) {
         currentSlide.value--;
       } else {
-        currentSlide.value = slides.value.length - 1; // Loop back to the last slide
+        currentSlide.value = slides.value.length - 1;
       }
     };
 

@@ -3,19 +3,51 @@
   <section v-else class="contacts">
     <div class="container">
       <div class="contacts__inner">
-        <span class="suptitle"> Contact us </span>
-        <div class="title">Chat to our friendly team</div>
-        <div class="subtitle">
-          We’d love to hear from you. Please fill out this form or shoot us an
-          email.
+        <span
+          class="suptitle"
+          v-if="contacts && contacts.content && contacts.content.label"
+        >
+          {{ contacts.content.label }}
+        </span>
+        <div
+          class="title"
+          v-if="contacts && contacts.content && contacts.content.title"
+        >
+          {{ contacts.content.title }}
+        </div>
+        <div
+          class="subtitle"
+          v-if="contacts && contacts.content && contacts.content.description"
+        >
+          {{ contacts.content.description }}
         </div>
         <div class="contacts__flex">
           <div class="contacts__wrap">
-            <div class="content">
-              <div v-for="(item, i) in info" :key="i">
-                <img :src="require(`@/assets/images/${item.icon}`)" alt="" />
-                <span>{{ item.title }}</span>
-                <p>{{ item.content }}</p>
+            <div
+              class="content"
+              v-for="(item, i) in contacts.contacts"
+              :key="i"
+              v-if="contacts && contacts.contacts"
+            >
+              <div v-if="item.tel_number">
+                <img :src="require(`@/assets/images/tel.svg`)" alt="" />
+                <span>Tel</span>
+                <p>{{ item.tel_number }}</p>
+              </div>
+              <div v-if="item.phone_number">
+                <img :src="require(`@/assets/images/tel.svg`)" alt="" />
+                <span>Mobile</span>
+                <p>{{ item.phone_number }}</p>
+              </div>
+              <div v-if="item.email">
+                <img :src="require(`@/assets/images/mail.svg`)" alt="" />
+                <span>Mobile</span>
+                <p>{{ item.email }}</p>
+              </div>
+              <div v-if="item.address">
+                <img :src="require(`@/assets/images/location.svg`)" alt="" />
+                <span>Office</span>
+                <p>{{ item.address }}</p>
               </div>
             </div>
 
@@ -73,7 +105,7 @@ export default {
       },
     ]);
 
-    const contacts = computed(() => store.state.contacts.data);
+    const contacts = computed(() => store.state.main.contacts.data);
 
     onMounted(async () => {
       await store.dispatch("main/getContacts").then((res) => {
