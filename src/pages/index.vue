@@ -6,19 +6,63 @@
     <product-slider :products="main.products" />
     <services-slider :services="main.services" />
     <major-projects :projects="main.projects" />
-    <!-- <section class="actions">
+    <section class="actions" v-if="main && main.performance">
       <div class="container">
         <div class="actions__inner">
           <div class="actions__content">
-            <p class="title">Our work in action</p>
-            <p class="subtitle">
-              Everything you need to build modern UI and great products.
+            <p
+              class="title"
+              v-if="
+                main &&
+                main.performance &&
+                main.performance.content &&
+                main.performance.content.title
+              "
+            >
+              {{ main.performance.content.title }}
+            </p>
+            <p
+              class="subtitle"
+              v-if="
+                main &&
+                main.performance &&
+                main.performance.content &&
+                main.performance.content.description
+              "
+            >
+              {{ main.performance.content.description }}
             </p>
           </div>
-          <div class="actions__sliders"></div>
+          <div
+            class="actions__sliders"
+            v-if="main && main.performance && main.performance.performance"
+          >
+            <swiper
+              :effect="'cards'"
+              :grabCursor="true"
+              :modules="modules"
+              :cardsEffect="{
+                rotate: false,
+                slideShadows: false,
+                perSlideOffset: 11,
+                perSlideRotate: 10,
+              }"
+              :pagination="{ clickable: true }"
+              :navigation="true"
+              class="mySwiper"
+            >
+              <swiper-slide
+                v-for="(item, i) in main.performance.performance"
+                :key="i"
+              >
+                <span> {{ item.title }} </span>
+                <p>{{ item.description }}</p>
+              </swiper-slide>
+            </swiper>
+          </div>
         </div>
       </div>
-    </section> -->
+    </section>
     <partners :partners="main.partners" />
     <request :request="main.form_request" />
   </div>
@@ -35,6 +79,10 @@ import MajorProjects from "@/components/partials/MainPage/MajorProjects.vue";
 import { useStore } from "vuex";
 import { ref, onMounted, computed } from "vue";
 import Loader from "@/components/global/Loader.vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import { EffectCards, Pagination, Navigation } from "swiper/modules";
 
 export default {
   components: {
@@ -46,6 +94,8 @@ export default {
     ServicesSlider,
     MajorProjects,
     Loader,
+    Swiper,
+    SwiperSlide,
   },
   setup() {
     const store = useStore();
@@ -89,6 +139,7 @@ export default {
       nextSlide,
       prevSlide,
       main,
+      modules: [EffectCards, Pagination, Navigation],
     };
   },
 };

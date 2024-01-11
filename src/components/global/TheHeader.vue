@@ -17,7 +17,7 @@
             </li>
           </ul>
         </nav>
-
+        <!-- {{ t("home") }} -->
         <div class="header__flex">
           <div class="header__language">
             <div
@@ -108,7 +108,7 @@ export default {
     const isDropdownOpenLang = ref(false);
     const availableLanguages = ["en", "ru", "kz"];
 
-    const { t, locale, setLocale } = useI18n({
+    const { t, locale } = useI18n({
       inheritLocale: true,
     });
 
@@ -150,6 +150,7 @@ export default {
 
     const changeLanguage = (lang) => {
       locale.value = lang;
+      console.log(locale.value);
     };
 
     return {
@@ -165,7 +166,6 @@ export default {
       changeLanguage,
       locale,
       t,
-      setLocale,
     };
   },
 };

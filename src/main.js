@@ -17,7 +17,7 @@ const messages = {
 }
 
 const i18n = createI18n({
-  locale: 'en', // установите язык по умолчанию
+  locale: 'en',
   fallbackLocale: 'en',
   legacy: false,
   messages,

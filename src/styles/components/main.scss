@@ -84,7 +84,7 @@
         bottom: 0;
         top: 0;
         object-fit: cover;
-        object-position: center center;
+        object-position: top center;
         z-index: -1;
       }
       &__content{
@@ -258,50 +258,68 @@
   }
   &__sliders{
     position: relative;
-    overflow: hidden;
-    .slides{
+    padding-left: 50px;
+    .swiper-pagination{
+      margin-top: 20px;
+      height: 24px;
       display: flex;
-      overflow: hidden;
+      align-items: center;
+      padding-left: 180px;
+      .swiper-pagination-bullet{
+        width: 8px;
+        height: 8px;
+        background: #CCDEE2;
+        border-radius: 8px;
+        display: block;
+        & + .swiper-pagination-bullet{
+          margin-left: 12px;
+        }
+        &-active{
+          background: $main-color !important;
+        }
+      }
     }
-    .slide {
-      width: 400px;
-      min-width: 400px;
-      max-width: 400px;
-      margin-right: 16px;
+    .swiper-slide {
+      width: 400px !important;
+      min-width: 400px !important;
+      max-width: 400px !important;
       height: 192px;
       border-radius: 10px;
-      background: $main-color;
+      background-color: $main-color;
+      background-image: url('@/assets/images/actions-bg.svg');
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 16px;
+      margin-left: 16px;
+      span{
+        color: white;
+        font-size: 60px;
+        line-height: 72px;
+        letter-spacing: -1.2px;
+        font-weight: 600;
+      }
+      p{
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        color: white;
+        font-weight: 600;
+      }
       &:nth-child(2){
-        background: #FFD504;
+        background-color: #FFD504;
       }
       &:nth-child(3){
-        background: #E6EEF1;
+        background-color: #E6EEF1;
       }
       &:nth-child(4){
-        background: $black-color;
+        background-color: $black-color;
       }
-    }
-    
-    .slider-controls {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .dots span {
-      height: 10px;
-      width: 10px;
-      margin: 0 5px;
-      display: inline-block;
-      border-radius: 50%;
-      background-color: gray;
-    }
-    
-    .dots span.active {
-      background-color: white;
     }
   }
 }
@@ -383,6 +401,15 @@
     }
   }
 
+  .major-slider{
+    &__inner{
+      .slide-item{
+        width: 300px;
+        height: 350px;
+      }
+    }
+  }
+
   .partners{
     &__inner{
       .cards{
@@ -411,6 +438,95 @@
         .subtitle{
           max-width: 100%;
           text-align: center;
+        }
+      }
+    }
+  }
+
+  .actions{
+    width: 100%;
+    overflow: hidden;
+    &__inner{
+      display: flex;
+      flex-direction: column;
+    }
+    &__content, &__sliders{
+      width: 100%;
+    }
+    &__content{
+      margin-bottom: 36px;
+      .subtitle{
+        margin-bottom: 0;
+      }
+    }
+    &__sliders{
+      position: relative;
+      padding-left: 0;
+      .swiper-pagination{
+        margin-top: 20px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        padding-left: 180px;
+        .swiper-pagination-bullet{
+          width: 8px;
+          height: 8px;
+          background: #CCDEE2;
+          border-radius: 8px;
+          display: block;
+          & + .swiper-pagination-bullet{
+            margin-left: 12px;
+          }
+          &-active{
+            background: $main-color !important;
+          }
+        }
+      }
+      .swiper-slide {
+        width: 290px !important;
+        min-width: 290px !important;
+        max-width: 290px !important;
+        height: 192px;
+        border-radius: 10px;
+        background-color: $main-color;
+        background-image: url('@/assets/images/actions-bg.svg');
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: contain;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+        margin-left: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        span{
+          color: white;
+          font-size: 60px;
+          line-height: 72px;
+          letter-spacing: -1.2px;
+          font-weight: 600;
+        }
+        p{
+          text-align: center;
+          margin: 0;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 26px;
+          color: white;
+          font-weight: 600;
+        }
+        &:nth-child(2){
+          background-color: #FFD504;
+        }
+        &:nth-child(3){
+          background-color: #E6EEF1;
+        }
+        &:nth-child(4){
+          background-color: $black-color;
         }
       }
     }

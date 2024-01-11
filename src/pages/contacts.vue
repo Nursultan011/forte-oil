@@ -25,9 +25,9 @@
           <div class="contacts__wrap">
             <div
               class="content"
-              v-for="(item, i) in contacts.contacts"
+              v-for="(item, i) in selectedSubTabData.contacts"
               :key="i"
-              v-if="contacts && contacts.contacts"
+              v-if="selectedSubTabData && selectedSubTabData.contacts"
             >
               <div v-if="item.tel_number">
                 <img :src="require(`@/assets/images/tel.svg`)" alt="" />
@@ -88,6 +88,33 @@
             </form>
           </div>
           <div class="maps">
+            <ul class="tabs">
+              <li
+                class="tab"
+                v-for="(item, i) in contacts.countries"
+                :key="i"
+                :class="{ active: activeTab === i }"
+                @click="setActiveTab(i)"
+              >
+                {{ item.title }}
+              </li>
+            </ul>
+            <div
+              class="tab__content"
+              v-if="selectedTabData && selectedTabData.cities"
+            >
+              <ul class="subtabs">
+                <li
+                  class="subtab"
+                  v-for="(item, i) in selectedTabData.cities"
+                  :key="i"
+                  :class="{ active: activeSubTab === i }"
+                  @click="setActiveSubTab(i)"
+                >
+                  {{ item.title }}
+                </li>
+              </ul>
+            </div>
             <iframe
               src="https://maps.google.com/maps?q=almaty&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
               frameborder="0"
@@ -109,32 +136,36 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
+    const contacts = computed(() => store.state.main.contacts?.data);
+    const activeTab = ref(0);
+    const activeSubTab = ref(0);
 
-    const info = ref([
-      {
-        icon: "tel.svg",
-        title: "Tel",
-        content: "+7 (727) 339 5575",
-      },
-      {
-        icon: "tel.svg",
-        title: "Mobile",
-        content: "+7 (727) 339 5575",
-      },
-      {
-        icon: "mail.svg",
-        title: "Email",
-        content: "v.fedulov@forteofs.com",
-      },
-      {
-        icon: "location.svg",
-        title: "Office",
-        content:
-          "Republic of Kazakhstan, Almaty 050040, Bukhar Zhyrau 35 # 344 'Prestige'",
-      },
-    ]);
+    const selectedTabData = computed(() => {
+      if (contacts.value && contacts.value.countries) {
+        return contacts.value.countries[activeTab.value];
+      }
+    });
 
-    const contacts = computed(() => store.state.main.contacts.data);
+    const selectedSubTabData = computed(() => {
+      if (selectedTabData.value && selectedTabData.value.cities) {
+        return (
+          (selectedTabData.value.cities &&
+            selectedTabData.value.cities[activeSubTab.value]) ||
+          {}
+        );
+      }
+    });
+
+    console.log(selectedSubTabData.value);
+
+    const setActiveTab = (index) => {
+      activeTab.value = index;
+      activeSubTab.value = 0;
+    };
+
+    const setActiveSubTab = (index) => {
+      activeSubTab.value = index;
+    };
 
     const form = ref({
       name: "",
@@ -184,7 +215,6 @@ export default {
     });
 
     return {
-      info,
       isLoading,
       store,
       contacts,
@@ -193,6 +223,12 @@ export default {
       send,
       onEmailInput,
       onInput,
+      activeTab,
+      activeSubTab,
+      selectedTabData,
+      selectedSubTabData,
+      setActiveTab,
+      setActiveSubTab,
     };
   },
 };
