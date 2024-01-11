@@ -26,7 +26,6 @@
     .subtitle{
       color: #E6EEF1;
       margin: 0;
-      text-transform: capitalize;
     }
   }
 }
@@ -256,9 +255,6 @@
     width: calc(50% - 16px);
   }
   &__content{
-    .subtitle{
-      text-transform: capitalize;
-    }
   }
   &__sliders{
     position: relative;
