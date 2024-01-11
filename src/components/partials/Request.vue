@@ -13,21 +13,40 @@
             {{ $props.request.description }}
           </p>
         </div>
-        <form action="" class="form">
-          <input v-model="form.name" type="text" placeholder="Name" />
+        <form @submit.prevent="send" class="form">
+          <input
+            required
+            v-model="form.full_name"
+            type="text"
+            :placeholder="$t('name')"
+          />
           <input
             v-model="form.phone_number"
             type="text"
-            placeholder="Mobile number"
+            required
+            @input="onInput"
+            :placeholder="$t('phone_number')"
           />
-          <input v-model="form.email" type="text" placeholder="E-mail" />
+          <input
+            required
+            v-model="form.email"
+            type="text"
+            placeholder="E-mail"
+            @input="onEmailInput"
+          />
           <input
             v-model="form.company_name"
             type="text"
-            placeholder="Company"
+            required
+            :placeholder="$t('company')"
           />
-          <textarea v-model="form.comments" placeholder="Comments"></textarea>
-          <button class="button">Send</button>
+          <textarea
+            required
+            v-model="form.comments"
+            :placeholder="$t('comments')"
+          ></textarea>
+          <span v-if="error" class="err">{{ error }}</span>
+          <button type="submit" class="button">{{ $t("send") }}</button>
         </form>
       </div>
     </div>
@@ -36,9 +55,12 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
 export default {
   props: ["request"],
   setup() {
+    const store = useStore();
+
     const form = ref({
       name: "",
       phone_number: "",
@@ -47,8 +69,46 @@ export default {
       comments: "",
     });
 
+    const error = ref(null);
+
+    const send = async () => {
+      await store
+        .dispatch("main/postRequest", form.value)
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err && err.data && err.data.msg) {
+            error.value = err.data.msg;
+          }
+        });
+    };
+
+    const onEmailInput = (event) => {
+      let value = event.target.value;
+
+      if (value.length === 1 && value !== "@") {
+        value = value + "@";
+      }
+
+      form.value.email = value;
+    };
+
+    const onInput = (event) => {
+      const value = event.target.value;
+      const onlyDigits = value.replace(/\D/g, "");
+
+      form.value.phone_number = onlyDigits;
+    };
+
     return {
       form,
+      store,
+      send,
+      error,
+      onEmailInput,
+      onInput,
     };
   },
 };

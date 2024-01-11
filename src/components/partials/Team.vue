@@ -33,8 +33,8 @@
             <div class="slide-item">
               <img v-if="slide.img_uri" :src="getImg(slide.img_uri)" alt="" />
               <div class="slide-item__content">
-                <p v-if="slide.name">{{ slide.name }}</p>
-                <h3 v-if="slide.position">{{ slide.position }}</h3>
+                <p v-if="slide.full_name">{{ slide.full_name }}</p>
+                <h3 v-if="slide.role">{{ slide.role }}</h3>
               </div>
             </div>
           </SplideSlide>

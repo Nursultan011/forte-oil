@@ -25,7 +25,7 @@
         </div>
         <div class="products__content">
           <div class="products__categories">
-            <p>Category</p>
+            <p>{{ $t("category") }}</p>
             <div class="products__category">
               <span
                 v-for="category in categories"

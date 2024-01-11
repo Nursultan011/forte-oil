@@ -9,7 +9,7 @@
           <p class="subtitle">
             {{ $props.about.description }}
           </p>
-          <router-link to="/about" class="button">More details</router-link>
+          <router-link to="/about" class="button">{{ $t("more") }}</router-link>
         </div>
         <div>
           <img src="@/assets/images/solutions-bg.png" alt="" />

@@ -2,7 +2,7 @@
   <main class="main">
     <div class="container">
       <div class="main__inner">
-        <div class="h1" v-html="$props.main.title"></div>
+        <p class="h1" v-html="$props.main.title"></p>
         <p class="subtitle" v-html="$props.main.description"></p>
       </div>
     </div>

@@ -51,11 +51,40 @@
               </div>
             </div>
 
-            <form action="" class="form">
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Mobile number" />
-              <textarea placeholder="Question"></textarea>
-              <button class="button">Send</button>
+            <form @submit.prevent="send" class="form">
+              <input
+                required
+                v-model="form.full_name"
+                type="text"
+                :placeholder="$t('name')"
+              />
+              <input
+                v-model="form.phone_number"
+                type="text"
+                required
+                @input="onInput"
+                :placeholder="$t('phone_number')"
+              />
+              <input
+                required
+                v-model="form.email"
+                type="text"
+                placeholder="E-mail"
+                @input="onEmailInput"
+              />
+              <input
+                v-model="form.company_name"
+                type="text"
+                required
+                :placeholder="$t('company')"
+              />
+              <textarea
+                required
+                v-model="form.comments"
+                :placeholder="$t('comments')"
+              ></textarea>
+              <span v-if="error" class="err">{{ error }}</span>
+              <button type="submit" class="button">{{ $t("send") }}</button>
             </form>
           </div>
           <div class="maps">
@@ -107,6 +136,47 @@ export default {
 
     const contacts = computed(() => store.state.main.contacts.data);
 
+    const form = ref({
+      name: "",
+      phone_number: "",
+      email: "",
+      company_name: "",
+      comments: "",
+    });
+
+    const error = ref(null);
+
+    const send = async () => {
+      await store
+        .dispatch("main/postRequest", form.value)
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err && err.data && err.data.msg) {
+            error.value = err.data.msg;
+          }
+        });
+    };
+
+    const onEmailInput = (event) => {
+      let value = event.target.value;
+
+      if (value.length === 1 && value !== "@") {
+        value = value + "@";
+      }
+
+      form.value.email = value;
+    };
+
+    const onInput = (event) => {
+      const value = event.target.value;
+      const onlyDigits = value.replace(/\D/g, "");
+
+      form.value.phone_number = onlyDigits;
+    };
+
     onMounted(async () => {
       await store.dispatch("main/getContacts").then((res) => {
         isLoading.value = false;
@@ -118,6 +188,11 @@ export default {
       isLoading,
       store,
       contacts,
+      form,
+      error,
+      send,
+      onEmailInput,
+      onInput,
     };
   },
 };

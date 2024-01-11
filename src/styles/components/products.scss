@@ -91,16 +91,18 @@
         list-style-type: none;
         &>li{
           width: calc(33.3333% - 5.333px);
-          span{
-            color: $grey;
-            font-size: 12px;
-            font-weight: 400;
-            margin-bottom: 2px;
-          }
+          color: $grey;
+          font-size: 12px;
+          font-weight: 400;
+          margin-bottom: 2px;
           ul{
-            margin-top: 10px;
+            margin-top: 5px;
             list-style-type: none;
             padding-left: 0;
+            li{
+              color: $black-color;
+              font-size: 14px;
+            }
           }
         }
       }

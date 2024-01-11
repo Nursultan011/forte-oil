@@ -23,33 +23,22 @@
         </div>
         <div
           class="services__wrap"
-          v-if="services && services.cleaning_services"
+          v-for="(card, idx) in categorizedServices"
+          :key="idx"
         >
           <div
             class="services__title"
-            v-if="
-              services &&
-              services.cleaning_services &&
-              services.cleaning_services.title
-            "
+            v-if="card.title && card.cards && card.cards.length > 0"
           >
             <span>
-              {{ services.cleaning_services.title }}
+              {{ card.title }}
             </span>
           </div>
-          <div class="cards">
-            <div
-              class="card"
-              v-for="(item, i) in services.cleaning_services.cards"
-              :key="i"
-            >
+          <div class="cards" v-if="card.cards">
+            <div class="card" v-for="(item, i) in card.cards" :key="i">
               <!-- <div class="badge">Cleaning services</div> -->
               <div class="img">
-                <img
-                  v-if="item.img"
-                  :src="require(`@/assets/images/${item.img}`)"
-                  alt=""
-                />
+                <img v-if="item.img_uri" :src="getImg(item.img_uri)" alt="" />
               </div>
               <h3 v-if="item.title">
                 {{ item.title }}
@@ -57,14 +46,14 @@
               <p v-if="item.description">
                 {{ item.description }}
               </p>
-              <div v-if="item.applications" class="items">
+              <div v-if="item.applications_include" class="items">
                 <div
-                  @click="toggleItem('applications-' + i)"
+                  @click="toggleItem(item.title + '-' + i)"
                   class="items-header"
                 >
-                  Applications include:
+                  {{ $t("applications_txt") }}
                   <svg
-                    v-if="isItemOpen('applications-' + i)"
+                    v-if="isItemOpen(item.title + '-' + i)"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -96,23 +85,20 @@
                     />
                   </svg>
                 </div>
-                <ul
-                  v-if="isItemOpen('applications-' + i)"
+                <div
                   class="items-content"
-                >
-                  <li v-for="(li, idx) in item.applications" :key="idx">
-                    {{ li }}
-                  </li>
-                </ul>
+                  v-html="item.applications_include"
+                  v-if="isItemOpen(item.title + '-' + i)"
+                ></div>
               </div>
               <div v-if="item.advantages" class="items mt-16px">
                 <div
-                  @click="toggleItem('advantages-' + i)"
+                  @click="toggleItem(item.title + '-' + 'advantage' + '-' + i)"
                   class="items-header"
                 >
-                  What are the advantages of pneumatic testing?
+                  {{ $t("advantages_txt") }}
                   <svg
-                    v-if="isItemOpen('advantages-' + i)"
+                    v-if="isItemOpen(item.title + '-' + 'advantage' + '-' + i)"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -144,143 +130,11 @@
                     />
                   </svg>
                 </div>
-                <ul v-if="isItemOpen('advantages-' + i)" class="items-content">
-                  <li v-for="(li, idx) in item.advantages" :key="idx">
-                    {{ li }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="services__wrap"
-          v-if="services && services.testing_services"
-        >
-          <div
-            class="services__title"
-            v-if="
-              services &&
-              services.testing_services &&
-              services.testing_services.title
-            "
-          >
-            <span>
-              {{ services.testing_services.title }}
-            </span>
-          </div>
-          <div class="cards">
-            <div
-              class="card"
-              v-for="(item, i) in services.testing_services.cards"
-              :key="i"
-            >
-              <!-- <div class="badge">Cleaning services</div> -->
-              <div class="img">
-                <img
-                  v-if="item.img"
-                  :src="require(`@/assets/images/${item.img}`)"
-                  alt=""
-                />
-              </div>
-              <h3 v-if="item.title">
-                {{ item.title }}
-              </h3>
-              <p v-if="item.description">
-                {{ item.description }}
-              </p>
-              <div v-if="item.applications" class="items">
                 <div
-                  @click="toggleItem('applications2-' + i)"
-                  class="items-header"
-                >
-                  Applications include:
-                  <svg
-                    v-if="isItemOpen('applications2-' + i)"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                      stroke="#98A2B3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M12 8V16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                      stroke="#98A2B3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-                <ul
-                  v-if="isItemOpen('applications2-' + i)"
                   class="items-content"
-                >
-                  <li v-for="(li, idx) in item.applications" :key="idx">
-                    {{ li }}
-                  </li>
-                </ul>
-              </div>
-              <div v-if="item.advantages" class="items mt-16px">
-                <div
-                  @click="toggleItem('advantages2-' + i)"
-                  class="items-header"
-                >
-                  What are the advantages of pneumatic testing?
-                  <svg
-                    v-if="isItemOpen('advantages2-' + i)"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                      stroke="#98A2B3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M12 8V16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                      stroke="#98A2B3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-                <ul v-if="isItemOpen('advantages2-' + i)" class="items-content">
-                  <li v-for="(li, idx) in item.advantages" :key="idx">
-                    {{ li }}
-                  </li>
-                </ul>
+                  v-html="item.advantages"
+                  v-if="isItemOpen(item.title + '-' + 'advantage' + '-' + i)"
+                ></div>
               </div>
             </div>
           </div>
@@ -305,6 +159,25 @@ export default {
     const isLoading = ref(true);
 
     const service = computed(() => store.state.main.services.data);
+
+    const categorizedServices = computed(() => {
+      const services = store.state.main.services?.data?.services || [];
+      const categories = store.state.main.services?.data?.categories || [];
+
+      let result = [];
+
+      categories.forEach((category) => {
+        let categoryServices = services.filter(
+          (service) => service.category_id === category.id
+        );
+        result.push({
+          title: category.title,
+          cards: categoryServices,
+        });
+      });
+
+      return result;
+    });
 
     const services = ref({
       cleaning_services: {
@@ -437,6 +310,7 @@ export default {
       store,
       isLoading,
       getImg,
+      categorizedServices,
     };
   },
 };

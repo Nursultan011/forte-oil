@@ -56,13 +56,15 @@
             }
           }
           &-content{
-            margin: 8px 0 0 0;
-            padding-left: 15px;
-            li{
-              color: #475467;
-              font-size: 14px;
-              line-height: 22px;
-              font-weight: 400;
+            ul{
+              margin: 8px 0 0 0;
+              padding-left: 15px;
+              li{
+                color: #475467;
+                font-size: 14px;
+                line-height: 22px;
+                font-weight: 400;
+              }
             }
           }
         }

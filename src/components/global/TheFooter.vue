@@ -16,25 +16,25 @@
           <div class="footer__list">
             <ul>
               <li>
-                <router-link to="/">Home</router-link>
+                <router-link to="/">{{ $t("home") }}</router-link>
               </li>
               <li>
-                <router-link to="/about"> About Us </router-link>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <router-link to="/products"> Products </router-link>
+                <router-link to="/about"> {{ $t("about") }} </router-link>
               </li>
             </ul>
             <ul>
               <li>
-                <router-link to="/services">Services</router-link>
+                <router-link to="/products"> {{ $t("products") }} </router-link>
               </li>
             </ul>
             <ul>
               <li>
-                <router-link to="/contacts">Contacts</router-link>
+                <router-link to="/services">{{ $t("services") }}</router-link>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <router-link to="/contacts">{{ $t("contacts") }}</router-link>
               </li>
               <li>
                 <a href="tel:+77273395575"> +7 (727) 339 5575 </a>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="footer__down">
-          <p>© 2023 Forte Oil. All rights reserved.</p>
+          <p>© 2023 {{ $t("footer_3") }}</p>
           <div class="icons">
             <a href="">
               <svg

@@ -114,23 +114,23 @@ export default {
 
     const headers = ref([
       {
-        name: "Home",
+        name: t("home"),
         link: "/",
       },
       {
-        name: "About us",
+        name: t("about"),
         link: "/about",
       },
       {
-        name: "Products",
+        name: t("products"),
         link: "/products",
       },
       {
-        name: "Services",
+        name: t("services"),
         link: "/services",
       },
       {
-        name: "Contacts",
+        name: t("contacts"),
         link: "/contacts",
       },
     ]);

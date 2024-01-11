@@ -79,7 +79,20 @@ const actions = {
       console.log('Ошибка', error);
       throw error;
     }
-  }
+  },
+  async postRequest({ commit }, payload) {
+    try {
+      const response = await axiosInstance.post('/api/form_request/', payload);
+
+      if (response.data) {
+        // commit('setMain', response.data);
+        return response.data;
+      }
+
+    } catch (error) {
+      throw error.response;
+    }
+  },
 };
 
 const mutations = {

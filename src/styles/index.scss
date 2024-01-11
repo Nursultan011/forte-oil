@@ -114,6 +114,13 @@ section{
       color: $grey;
     }
   }
+  .err{
+    color: #ce3535;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 15px;
+    display: block;
+  }
   textarea{
     cursor: pointer;
     width: 100%;

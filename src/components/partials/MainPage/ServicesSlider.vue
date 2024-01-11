@@ -37,8 +37,8 @@
               <img v-if="slide.img_uri" :src="getImg(slide.img_uri)" alt="" />
               <div class="slide-item__content">
                 <p v-if="slide.title">{{ slide.title }}</p>
-                <router-link to="/products" class="more">
-                  More details
+                <router-link to="/services" class="more">
+                  {{ $t("more") }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

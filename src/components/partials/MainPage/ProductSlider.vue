@@ -38,7 +38,7 @@
               <div class="slide-item__content">
                 <p v-if="slide.title">{{ slide.title }}</p>
                 <router-link to="/products" class="more">
-                  More details
+                  {{ $t("more") }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
