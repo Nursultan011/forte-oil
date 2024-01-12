@@ -1,7 +1,7 @@
 <template>
   <main
     class="main"
-    :style="`background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url(${getImg(
+    :style="`background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url(${getImg(
       img
     )}), lightgray 50%`"
   >
