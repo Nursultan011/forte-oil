@@ -1,4 +1,5 @@
 export const getImg = (event) => {
+  console.log(event, 'hhhhhhhhhhhhhh')
   const baseUrl = process.env.VUE_APP_BASE_URL;
   return `${baseUrl}/storage/${event}`;
 }
