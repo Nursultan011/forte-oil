@@ -63,7 +63,7 @@
                 type="text"
                 required
                 @input="onInput"
-                :placeholder="$t('phone_number')"
+                :placeholder="$t('mobile_number')"
               />
               <input
                 required

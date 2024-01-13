@@ -35,6 +35,13 @@
       padding-left: 0;
       list-style-type: none;
       margin: 0;
+      .not-link{
+        a{
+          color: #D0D5DD;
+          font-size: 14px;
+          text-transform: uppercase;
+        }
+      }
       li{
         color: #EAECF0;
         font-size: 16px;
