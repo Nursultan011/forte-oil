@@ -145,11 +145,11 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import Loader from "@/components/global/Loader.vue";
 import { useStore } from "vuex";
 import { getImg } from "@/helpers/imageUrl";
-
+import { useI18n } from "vue-i18n";
 export default {
   components: {
     Loader,
@@ -157,6 +157,8 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
+
+    const { locale } = useI18n({ useScope: "global" });
 
     const service = computed(() => store.state.main.services.data);
 
@@ -296,6 +298,13 @@ export default {
     const isItemOpen = (uniqueId) => openItems.value.includes(uniqueId);
 
     onMounted(async () => {
+      await store.dispatch("main/getServices").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
+    watch(locale, async (val) => {
+      isLoading.value = true;
       await store.dispatch("main/getServices").then((res) => {
         isLoading.value = false;
       });

@@ -96,9 +96,13 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import {
+  SUPPORT_LOCALES as supportLocales,
+  setI18nLanguage,
+} from "@/helpers/i18n";
 
 export default {
   setup() {
@@ -108,11 +112,9 @@ export default {
     const isDropdownOpenLang = ref(false);
     const availableLanguages = ["en", "ru", "kz"];
 
-    const { t, locale } = useI18n({
-      inheritLocale: true,
-    });
+    const { t, locale } = useI18n({ useScope: "global" });
 
-    const headers = ref([
+    const headers = computed(() => [
       {
         name: t("home"),
         link: "/",
@@ -149,8 +151,7 @@ export default {
     };
 
     const changeLanguage = (lang) => {
-      locale.value = lang;
-      console.log(locale.value);
+      setI18nLanguage(lang);
     };
 
     return {

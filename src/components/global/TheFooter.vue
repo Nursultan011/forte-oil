@@ -70,8 +70,9 @@
 <script>
 import Loader from "@/components/global/Loader.vue";
 import { useStore } from "vuex";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { getIcon } from "@/helpers/imageUrl";
+import { useI18n } from "vue-i18n";
 export default {
   components: {
     Loader,
@@ -79,11 +80,17 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
-
+    const { locale } = useI18n({ useScope: "global" });
     const main = computed(() => store.state.main.main.data.footer);
 
     onMounted(async () => {
       await store.dispatch("main/getMain").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
+    watch(locale, (val) => {
+      store.dispatch("main/getMain").then((res) => {
         isLoading.value = false;
       });
     });

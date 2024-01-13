@@ -74,10 +74,11 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import Loader from "@/components/global/Loader.vue";
 import { useStore } from "vuex";
 import { getImg } from "@/helpers/imageUrl";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: {
@@ -88,6 +89,8 @@ export default {
     const isLoading = ref(true);
 
     const products = computed(() => store.state.main.products.data);
+
+    const { locale } = useI18n({ useScope: "global" });
 
     const activeCategory = ref("View all");
 
@@ -113,6 +116,13 @@ export default {
     };
 
     onMounted(async () => {
+      await store.dispatch("main/getProducts").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
+    watch(locale, async (val) => {
+      isLoading.value = true;
       await store.dispatch("main/getProducts").then((res) => {
         isLoading.value = false;
       });

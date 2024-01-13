@@ -129,8 +129,9 @@
 
 <script>
 import Loader from "@/components/global/Loader.vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
 export default {
   components: { Loader },
   setup() {
@@ -139,6 +140,7 @@ export default {
     const contacts = computed(() => store.state.main.contacts?.data);
     const activeTab = ref(0);
     const activeSubTab = ref(0);
+    const { locale } = useI18n({ useScope: "global" });
 
     const selectedTabData = computed(() => {
       if (contacts.value && contacts.value.countries) {
@@ -209,6 +211,14 @@ export default {
     };
 
     onMounted(async () => {
+      await store.dispatch("main/getContacts").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
+    watch(locale, async (val) => {
+      isLoading.value = true;
+
       await store.dispatch("main/getContacts").then((res) => {
         isLoading.value = false;
       });

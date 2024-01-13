@@ -15,6 +15,8 @@ const getters = {
 const actions = {
   async getMain({ commit }) {
     try {
+      axiosInstance.defaults.headers.common['Accept-Language'] = localStorage.getItem('lang') || 'ru';
+
       const response = await axiosInstance.get('/api/home/');
 
       if (response.data) {
@@ -30,6 +32,8 @@ const actions = {
   },
   async getAbout({ commit }) {
     try {
+      axiosInstance.defaults.headers.common['Accept-Language'] = localStorage.getItem('lang') || 'ru';
+
       const response = await axiosInstance.get('/api/about/');
 
       if (response.data) {
@@ -43,6 +47,8 @@ const actions = {
   },
   async getServices({ commit }) {
     try {
+      axiosInstance.defaults.headers.common['Accept-Language'] = localStorage.getItem('lang') || 'ru';
+
       const response = await axiosInstance.get('/api/services/');
 
       if (response.data) {
@@ -56,6 +62,8 @@ const actions = {
   },
   async getProducts({ commit }) {
     try {
+      axiosInstance.defaults.headers.common['Accept-Language'] = localStorage.getItem('lang') || 'ru';
+
       const response = await axiosInstance.get('/api/products/');
 
       if (response.data) {
@@ -69,6 +77,8 @@ const actions = {
   },
   async getContacts({ commit }) {
     try {
+      axiosInstance.defaults.headers.common['Accept-Language'] = localStorage.getItem('lang') || 'ru';
+
       const response = await axiosInstance.get('/api/contacts/');
 
       if (response.data) {

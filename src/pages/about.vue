@@ -92,12 +92,13 @@
 <script>
 import Partners from "@/components/partials/Partners.vue";
 import Request from "@/components/partials/Request.vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import Team from "@/components/partials/Team.vue";
 import Loader from "@/components/global/Loader.vue";
 import MajorProjects from "@/components/partials/MainPage/MajorProjects.vue";
 import { useStore } from "vuex";
 import { getImg, getIcon } from "@/helpers/imageUrl";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: {
@@ -111,6 +112,8 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
+
+    const { locale } = useI18n({ useScope: "global" });
 
     const about = ref({
       main: {
@@ -175,6 +178,14 @@ export default {
     const aboutUs = computed(() => store.state.main.about.data);
 
     onMounted(async () => {
+      await store.dispatch("main/getAbout").then((res) => {
+        isLoading.value = false;
+      });
+    });
+
+    watch(locale, async (val) => {
+      isLoading.value = true;
+
       await store.dispatch("main/getAbout").then((res) => {
         isLoading.value = false;
       });
