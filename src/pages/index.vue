@@ -49,6 +49,9 @@
               }"
               :pagination="{ clickable: true }"
               :navigation="true"
+              :autoplay="{
+                delay: 2000,
+              }"
               class="mySwiper"
             >
               <swiper-slide

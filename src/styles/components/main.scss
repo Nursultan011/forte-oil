@@ -518,6 +518,7 @@
           line-height: 26px;
           color: white;
           font-weight: 600;
+          text-align: center !important;
         }
         &:nth-child(2){
           background-color: #FFD504;
@@ -531,4 +532,8 @@
       }
     }
   }
+}
+
+.actions__sliders .swiper-slide p{
+  text-align: center;
 }
