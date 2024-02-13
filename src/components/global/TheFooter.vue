@@ -25,7 +25,7 @@
             </ul>
             <ul v-if="main && main.product_categories">
               <li class="not-link">
-                <a> {{ $t("products") }} </a>
+                <router-link to="/products"> {{ $t("products") }} </router-link>
               </li>
               <li v-for="(item, i) in main.product_categories" :key="i">
                 <router-link to="/products">{{ item.title }}</router-link>
@@ -33,7 +33,7 @@
             </ul>
             <ul v-if="main && main.service_categories">
               <li class="not-link">
-                <a>{{ $t("services") }}</a>
+                <router-link to="/services">{{ $t("services") }}</router-link>
               </li>
               <li v-for="(item, i) in main.service_categories" :key="i">
                 <router-link to="/services">{{ item.title }}</router-link>
@@ -41,7 +41,7 @@
             </ul>
             <ul v-if="main && main.contacts">
               <li class="not-link">
-                <a>{{ $t("contacts") }}</a>
+                <router-link to="/contacts">{{ $t("contacts") }}</router-link>
               </li>
               <li v-for="(item, i) in main.contacts" :key="i">
                 <a :href="item.url"> {{ item.content }} </a>
