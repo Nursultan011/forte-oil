@@ -10,7 +10,7 @@
             </div>
             <p>{{ $t("footer_1") }}</p>
             <p>
-              Разработано с ❤️️ в
+              Разработано в
               <a href="">digital lab</a>
             </p>
           </div>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="footer__down">
-          <p>© 2023 {{ $t("footer_3") }}</p>
+          <p>© 2024 {{ $t("footer_3") }}</p>
           <div class="icons" v-if="main && main.social_media">
             <a :href="item.url" v-for="(item, i) in main.social_media" :key="i">
               <img
