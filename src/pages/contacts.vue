@@ -115,11 +115,13 @@
                 </li>
               </ul>
             </div>
-            <iframe
-              src="https://maps.google.com/maps?q=almaty&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            <div v-if="selectedSubTabData && selectedSubTabData.contacts" v-for="(map, i) in selectedSubTabData.contacts" :key="i">
+              <iframe
+              :src="map.map_loc"
               frameborder="0"
               scrolling="no"
-            ></iframe>
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

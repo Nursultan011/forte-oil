@@ -317,6 +317,7 @@
         line-height: 28px;
         text-align: center;
         color: white;
+        font-weight: 600;
       }
       &:nth-child(2){
         background-color: #FFD504;
@@ -522,13 +523,12 @@
           font-weight: 600;
         }
         p{
-          text-align: center;
           margin: 0;
           font-size: 16px;
           font-weight: 600;
           line-height: 26px;
           color: white;
-          font-weight: 600;
+          text-align: center !important;
         }
         &:nth-child(2){
           background-color: #FFD504;
