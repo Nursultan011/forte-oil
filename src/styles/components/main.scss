@@ -125,6 +125,13 @@
 
 }
 
+.product-slider__inner .slide-item img, .services-slider__inner
+.slide-item img, .major-slider__inner .slide-item img,
+.team-slider__inner .slide-item img  {
+  height: 90%;
+  top: 13%;
+}
+
 .major-slider{
   &__inner{
     .slide-item{
@@ -209,7 +216,7 @@
       color: $white;
       font-size: 48px;
       font-weight: 600;
-      line-height: 60px; 
+      line-height: 60px;
       letter-spacing: -0.96px;
     }
     .subtitle{
@@ -308,8 +315,8 @@
         font-size: 18px;
         font-weight: 600;
         line-height: 28px;
+        text-align: center;
         color: white;
-        font-weight: 600;
       }
       &:nth-child(2){
         background-color: #FFD504;
@@ -397,6 +404,10 @@
     &__inner{
       .slide-item{
         height: 260px;
+        img {
+          height: 100%;
+          top: 0;
+        }
       }
     }
   }

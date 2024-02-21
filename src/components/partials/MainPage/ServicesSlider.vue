@@ -3,9 +3,9 @@
     <div class="container">
       <div class="services-slider__inner">
         <div class="services-slider__header" v-if="content">
-          <p class="suptitle" v-if="content && content.label">
+          <router-link to="/services" class="suptitle" v-if="content && content.label">
             {{ content.label }}
-          </p>
+          </router-link>
           <p class="title" v-if="content && content.title">
             {{ content.title }}
           </p>
